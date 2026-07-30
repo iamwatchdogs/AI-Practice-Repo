@@ -1,0 +1,91 @@
+[project]
+name = "ai-practice"
+version = "1.0.0"
+description = "To get hands-on practice GenAI projects"
+readme = "README.md"
+authors = [
+    { name = "iamwatchdogs", email = "shamith301102@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+proj_1 = "proj_1_openai_cmpt_api.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/proj_1_openai_cmpt_api"
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.0",
+    "pre-commit>=4.6.1",
+    "ruff>=0.16.0",
+]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+disallow_any_unimported = true
+disallow_any_expr = true
+disallow_any_decorated = true
+disallow_any_explicit = true
+
+strict_equality = true
+extra_checks = true
+
+local_partial_types = true
+incremental = false
+ignore_missing_imports = false
+enable_error_code = ["ignore-without-code"]
+
+mypy_path = "src"
+packages = [
+    "proj_1_openai_cmpt_api"
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "COM812",
+  "ISC001",
+  "PLR0913",
+  "PLR0912",
+  "PLR0915",
+  "PLR2004",
+  "D203",
+  "D100",
+  "D104",
+  "D213",
+  "CPY001",
+]
+
+preview = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
