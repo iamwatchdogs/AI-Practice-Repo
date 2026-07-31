@@ -3,6 +3,7 @@
 <div align="center">
 
 [![CI](https://github.com/iamwatchdogs/AI-Practice-Repo/actions/workflows/ci.yaml/badge.svg)](https://github.com/iamwatchdogs/AI-Practice-Repo/actions/workflows/ci.yaml "goto ci workflow")
+[![GitHub Pages](https://github.com/iamwatchdogs/AI-Practice-Repo/actions/workflows/gh-pages.yaml/badge.svg)](https://github.com/iamwatchdogs/AI-Practice-Repo/actions/workflows/gh-pages.yaml "goto gh-pages workflow")
 
 </div>
 
