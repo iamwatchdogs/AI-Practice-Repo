@@ -14,7 +14,7 @@
 
 </div>
 
-This is sample repo where I practice and get some hands on "modern" AI-Engineering tech stack i.e., applications developed over API requests to commercial/local LLMs scaling from a simple API request to large scale agentic application with specific usecases.
+This is a sample repository where I practice and gain hands-on experience with a modern AI-engineering stack, from simple API requests to large-scale agentic applications for specific use cases.
 
 ## Index
 
@@ -61,7 +61,7 @@ uv sync
 uv run proj_1
 
 # I'll keep the same naming convention standard, so that you can check them all out using,
-# uv run proj_{0-9}*
+# `uv run proj_{0-9}*` pattern
 ```
 
 ### Jekyll for GitHub Pages
@@ -89,7 +89,7 @@ bundle install
 bundle exec jekyll serve --livereload
 ```
 
-- Open the printed URL (usually <http://127.0.0.1:4000/>) in your browser. Any change to `_config.yml` requires a full restart, while content changes are picked up automatically (or trigger a rebuild with `bundle exec jekyll build`).
+- Open the printed URL (usually <http://127.0.0.1:4000/>) in your browser. Any change to `_config.yaml` requires a full restart, while content changes are picked up automatically (or trigger a rebuild with `bundle exec jekyll build`).
 
 > [!TIP]
 > The local build uses the same `_includes`/`_layouts` overrides committed to this repo, so what you see locally matches the deployed GitHub Pages output.

@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "**/*.md"
+      - "_includes/**"
       - _config.yaml
       - Gemfile
       - Gemfile.lock

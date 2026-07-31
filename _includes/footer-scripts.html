@@ -48,7 +48,15 @@
             var title = document.createElement('p');
             title.className = 'markdown-alert-title';
             title.innerHTML = '<i class="fas ' + type.icon + '"></i><strong>' + type.label + '</strong>';
-            bq.replaceChild(title, p);
+            bq.insertBefore(title, p);
+
+            var firstText = p.firstChild;
+            if (firstText && firstText.nodeType === 3) {
+                firstText.nodeValue = firstText.nodeValue.replace(m[0], '');
+            }
+            if (!p.textContent.trim()) {
+                p.parentNode.removeChild(p);
+            }
         });
     })();
 </script>
