@@ -3,6 +3,8 @@ name = "ai-practice"
 version = "1.0.0"
 description = "To get hands-on practice GenAI projects"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "iamwatchdogs", email = "shamith301102@gmail.com" }
 ]
