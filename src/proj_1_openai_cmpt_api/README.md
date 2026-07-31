@@ -39,6 +39,14 @@ uv run proj_1
 
 Here's the sample output that I've got,
 
+[![asciicast](https://asciinema.org/a/0T4NGKfRHxFMnIgY.svg)](https://asciinema.org/a/0T4NGKfRHxFMnIgY)
+
+<details>
+<summary>
+Sample Result
+</summary>
+
+
 ~~~md
 
  ====================================================================================================
@@ -142,3 +150,5 @@ Do you have a specific use case in mind, such as programming, gaming, or general
 
 
 ~~~
+
+</details>

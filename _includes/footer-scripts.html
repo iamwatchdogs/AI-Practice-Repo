@@ -1,0 +1,62 @@
+<!-- footer scripts -->
+
+<button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+</button>
+
+<script>
+    (function () {
+        var KEY = 'ai-practice-theme';
+        var ICONS = { light: 'fa-moon', dark: 'fa-sun' };
+
+        function applyIcon(theme) {
+            var icon = document.querySelector('#theme-toggle i');
+            if (icon) icon.className = 'fas ' + (ICONS[theme] || 'fa-moon');
+        }
+
+        var toggle = document.getElementById('theme-toggle');
+        toggle.addEventListener('click', function () {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            applyIcon(next);
+            try { localStorage.setItem(KEY, next); } catch (e) {}
+        });
+
+        applyIcon(document.documentElement.getAttribute('data-theme') || 'light');
+    })();
+
+    (function () {
+        var TYPES = {
+            note: { icon: 'fa-info-circle', label: 'Note' },
+            tip: { icon: 'fa-lightbulb', label: 'Tip' },
+            important: { icon: 'fa-exclamation-circle', label: 'Important' },
+            warning: { icon: 'fa-exclamation-triangle', label: 'Warning' },
+            caution: { icon: 'fa-octagon', label: 'Caution' }
+        };
+
+        document.querySelectorAll('.content blockquote').forEach(function (bq) {
+            var p = bq.querySelector('p');
+            if (!p) return;
+            var m = p.textContent.match(/^\s*\[!(note|tip|important|warning|caution)\]\s*/i);
+            if (!m) return;
+            var type = TYPES[m[1].toLowerCase()];
+            if (!type) return;
+
+            bq.classList.add('markdown-alert', 'markdown-alert-' + m[1].toLowerCase());
+
+            var title = document.createElement('p');
+            title.className = 'markdown-alert-title';
+            title.innerHTML = '<i class="fas ' + type.icon + '"></i><strong>' + type.label + '</strong>';
+            bq.insertBefore(title, p);
+
+            var firstText = p.firstChild;
+            if (firstText && firstText.nodeType === 3) {
+                firstText.nodeValue = firstText.nodeValue.replace(m[0], '');
+            }
+            if (!p.textContent.trim()) {
+                p.parentNode.removeChild(p);
+            }
+        });
+    })();
+</script>

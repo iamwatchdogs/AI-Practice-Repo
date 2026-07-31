@@ -221,3 +221,9 @@ __marimo__/
 
 # pre-commit testmondata
 .testmondata
+
+# Jekyll build output
+_site/
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
