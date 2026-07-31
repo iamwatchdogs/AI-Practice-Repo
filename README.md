@@ -24,13 +24,14 @@ You can check on each of the project from here,
 
 ## Setup
 
-This repo has a shared [`pyproject.toml`](https://github.com/iamwatchdogs/AI-Practice-Repo/blob/main/pyproject.toml "view pyproject.toml") file across all the project, thus making it easily switch and execute between projects. So, if you cloned the repo and synced the uv dependencies, then you're good to go.
+### GenAI Project
+This repo has a shared [`pyproject.toml`](https://github.com/iamwatchdogs/AI-Practice-Repo/blob/main/pyproject.toml) file across all the project, thus making it easily switch and execute between projects. So, if you cloned the repo and synced the uv dependencies, then you're good to go.
 
 If you need some help, here're some steps:
 
-- Start by [forking the repo](https://github.com/iamwatchdogs/AI-Practice-Repo/fork "fork the repo").
+- Start by [forking the repo](https://github.com/iamwatchdogs/AI-Practice-Repo/fork).
 
-- Then clone the repo to your local system and change the directory into the repo.
+- Then clone the repo to your local system.
 
 ```bash
 git clone https://github.com/<your-github-username>/AI-Practice-Repo.git
@@ -38,17 +39,18 @@ git clone https://github.com/<your-github-username>/AI-Practice-Repo.git
 # If you prefer using ssh then,
 # git clone git@github.com:<your-github-username>/AI-Practice-Repo.git
 
-# If you prefer using gh-cli then,
+# If you prefer using gh-cli then
 # gh repo clone <your-github-username>/AI-Practice-Repo
-
-# Change into the repo directory
-cd AI-Practice-Repo
 ```
 
-- Ensure you have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed and then sync the dependencies
+- Goto into the repo and sync with the uv dependencies
 
 ```bash
-# Sync the dependencies
+# Changing into the repo directory
+cd AI-Practice-Repo
+
+# Ensure you have installed `uv`
+# And then sync the dependencies
 uv sync
 ```
 
@@ -61,6 +63,36 @@ uv run proj_1
 # I'll keep the same naming convention standard, so that you can check them all out using,
 # uv run proj_{0-9}*
 ```
+
+### Jekyll for GitHub Pages
+
+This repo uses the [bulma-clean-theme](https://github.com/chrisrhymes/bulma-clean-theme) remote theme to render this README (and the sub-project pages) as a GitHub Pages site. To preview it locally:
+
+- Make sure you have [Ruby](https://www.ruby-lang.org/en/downloads/) installed.
+
+- Install Jekyll and Bundler.
+
+```bash
+# If you don't have them yet,
+gem install jekyll bundler
+```
+
+- Install the dependencies (from the `Gemfile` at the root of the repo).
+
+```bash
+bundle install
+```
+
+- Build the site and start the local server.
+
+```bash
+bundle exec jekyll serve --livereload
+```
+
+- Open the printed URL (usually <http://127.0.0.1:4000/>) in your browser. Any change to `_config.yml` requires a full restart, while content changes are picked up automatically (or trigger a rebuild with `bundle exec jekyll build`).
+
+> [!TIP]
+> The local build uses the same `_includes`/`_layouts` overrides committed to this repo, so what you see locally matches the deployed GitHub Pages output.
 
 ## Contribution
 
