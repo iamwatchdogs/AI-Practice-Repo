@@ -42,7 +42,9 @@ Here's the sample output that I've got,
 [![asciicast](https://asciinema.org/a/0T4NGKfRHxFMnIgY.svg)](https://asciinema.org/a/0T4NGKfRHxFMnIgY)
 
 <details>
-<summary>Sample Result</summary>
+<summary>
+Sample Result
+</summary>
 
 
 ~~~md

@@ -1,0 +1,79 @@
+title: AI Practice Repo
+description: "A personal practice repo to get hands-on practice GenAI projects"
+url: ""
+baseurl: ""     # configured in GitHub Action for GitHub Pages
+
+remote_theme: chrisrhymes/bulma-clean-theme@v0.14.0
+markdown: kramdown
+timezone: Asia/Calcutta
+force_theme: light
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  gfm_quirks: paragraph_end
+  syntax_highlighter_opts:
+    default_lang: plaintext
+  parse_block_html: true
+
+titles_from_headings:
+  enabled: true
+  strip_title: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      show_sidebar: false
+      subtitle: "A personal practice repo to get hands-on practice GenAI projects"
+      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo
+      hero_link_text: "View on GitHub"
+  - scope:
+      path: "src/proj_1_openai_cmpt_api"
+      type: "pages"
+    values:
+      subtitle: "A simple API call to an LLM using the OpenAI-compatible SDK."
+      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo/tree/main/src/proj_1_openai_cmpt_api
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-relative-links
+  - jekyll-include-cache
+
+readme_index:
+  enabled: true
+  remove_originals: true
+  with_frontmatter: false
+
+optional_front_matter:
+  remove_originals: true
+
+exclude:
+  - vendor
+  - .bundle
+  - .jekyll-cache
+  - .sass-cache
+  - node_modules
+  - .venv
+  - .mypy_cache
+  - .ruff_cache
+  - __pycache__/
+  - "**/__pycache__/"
+  - .gitignore
+  - .env
+  - .env.example
+  - "**/.env.example"
+  - .pre-commit-config.yaml
+  - .python-version
+  - .github
+  - LICENSE
+  - pyproject.toml
+  - uv.lock
+  - Gemfile
+  - Gemfile.lock
+  - "*.log"
+  - "*.py"
+  - "**/*.py"
