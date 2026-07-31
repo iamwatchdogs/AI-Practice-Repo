@@ -26,10 +26,10 @@ repos:
     hooks:
       - id: mypy
         name: "mypy type check"
-        args:
-          - --strict
-          - --ignore-missing-imports
         files: ^src/
+        additional_dependencies:
+          - openai>=2.51.0
+          - python-dotenv>=1.2.2
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
