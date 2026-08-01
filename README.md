@@ -70,7 +70,7 @@ uv run proj_1
 
 > [!NOTE]
 >
-> To initialize a new project within this practice repo without disturbing the exiting workflow, we have an [`create_new_project` utility](./src/utils).
+> To initialize a new project within this practice repo without disturbing the existing workflow, we have a [`create_new_project` utility](./src/utils).
 
 ### Jekyll for GitHub Pages
 

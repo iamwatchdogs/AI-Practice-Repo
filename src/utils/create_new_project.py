@@ -220,7 +220,8 @@ def _interactive_input() -> _ProjectInput:
     package = _validate_package(package)
     optional_values: dict[str, str] = {}
     for marker in _optional_markers():
-        value = input(f"{marker} (optional, blank keeps marker): ")
+        hint = " space-separated," if marker == "deps" else ""
+        value = input(f"{marker} (optional,{hint} blank keeps marker): ")
         if value:
             optional_values[marker] = value
     return _ProjectInput(
@@ -265,26 +266,28 @@ def _scaffold(project_input: _ProjectInput) -> None:
     repo_root = _find_repo_root(Path.cwd())
     module = f"{PROJECT_PREFIX}{project_input.number}_{project_input.package}"
     project_dir = repo_root / "src" / module
-    _log(project_input, "Created", f"package ./src/{module}")
     if not project_input.dry_run:
         _create_project_dir(project_dir, force=project_input.force)
+    _log(project_input, "Created", f"package ./src/{module}")
     replacements = _replacements(project_input)
     for source in _template_files():
         relative = source.relative_to(TEMPLATES_DIR)
         destination = project_dir / relative
-        _log(project_input, "Added", f"{relative} file to the package")
         if not project_input.dry_run:
             destination.parent.mkdir(parents=True, exist_ok=True)
             _copy_template(source, destination, replacements)
-    _log(project_input, "Registered", "package to pyproject.toml")
-    _log(project_input, "Registered", "package to _config.yaml")
-    _log(project_input, "Updated", "repo root README.md index")
+        _log(project_input, "Added", f"{relative} file to the package")
     if not project_input.dry_run:
         _update_pyproject(repo_root, project_input.number, module)
+    _log(project_input, "Registered", "package to pyproject.toml")
+    if not project_input.dry_run:
         _update_config(repo_root, project_input, module)
+    _log(project_input, "Registered", "package to _config.yaml")
+    if not project_input.dry_run:
         _update_root_readme(
             repo_root, project_input.number, project_input.title, module
         )
+    _log(project_input, "Updated", "repo root README.md index")
     _log(
         project_input,
         "Logging",
@@ -486,10 +489,19 @@ def _insert_array_value(content: str, section: str, value: str) -> str:
     """
     lines = content.splitlines()
     section_index = _find_section(lines, section)
-    array_index = next(
+    section_end = next(
         (
             index
             for index in range(section_index + 1, len(lines))
+            if lines[index].strip().startswith("[")
+            and lines[index].strip().endswith("]")
+        ),
+        len(lines),
+    )
+    array_index = next(
+        (
+            index
+            for index in range(section_index + 1, section_end)
             if lines[index].strip().startswith("packages = [")
         ),
         None,
@@ -497,10 +509,19 @@ def _insert_array_value(content: str, section: str, value: str) -> str:
     if array_index is None:
         message = f"packages array missing from [{section}]"
         raise _error(message)
+    array_line = lines[array_index]
+    if array_line.rstrip().endswith("]"):
+        closing_bracket = array_line.rfind("]")
+        values = array_line[:closing_bracket].rstrip()
+        separator = "" if values.endswith("[") else ", "
+        lines[array_index] = (
+            values + separator + f'"{value}"' + array_line[closing_bracket:]
+        )
+        return _join_lines(lines, trailing_newline=content.endswith("\n"))
     end = next(
         (
             index
-            for index in range(array_index + 1, len(lines))
+            for index in range(array_index + 1, section_end)
             if lines[index].strip() == "]"
         ),
         None,

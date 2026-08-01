@@ -34,7 +34,7 @@ defaults:
       type: "pages"
     values:
       subtitle: "An utility package that will contain all the utlitiy program and script for the repo."
-      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo/tree/main/src/util
+      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo/tree/main/src/utils
   - scope:
       path: "src/proj_1_intro_to_llm_api"
       type: "pages"

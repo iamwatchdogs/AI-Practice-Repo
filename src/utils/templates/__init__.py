@@ -7,5 +7,5 @@ Within this project, we have following functions:
 main() -> None
     [main_function_description]
 
-[TODO: Update the docs once dones with the project]
+[TODO: Update the docs once done with the project]
 """
