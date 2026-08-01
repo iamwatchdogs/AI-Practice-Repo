@@ -22,6 +22,7 @@ This is a sample repository where I practice and gain hands-on experience with a
 You can check on each of the project from here,
 
 <!-- INDEX STARTS HERE -->
+- [Utility Package](./src/utils "goto utility package")
 - [Project-1: Intro to LLM API](./src/proj_1_intro_to_llm_api "goto project-1 on github")
 <!-- INDEX ENDS HERE -->
 
@@ -66,6 +67,10 @@ uv run proj_1
 # I'll keep the same naming convention standard, so that you can check them all out using,
 # `uv run proj_{0-9}*` pattern
 ```
+
+> [!NOTE]
+>
+> To initialize a new project within this practice repo without disturbing the exiting workflow, we have an [`create_new_project` utility](./src/utils).
 
 ### Jekyll for GitHub Pages
 
