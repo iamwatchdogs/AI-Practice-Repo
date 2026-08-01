@@ -68,8 +68,8 @@ Here's a small brief of implementation in few words:
 - Set the `api_key`, `base_url` and `model` values.
   - I am aware that `OpenAI` class will automatically try to load these env vars, but I prefer setting these values manually.
 - Creating a openai client using these values.
-- Loaded the list of hardedcoded conversations from external json file.
-- Printed the results while iterating over the hardcoded conversations to making requests to LLM via `client.responses.create`.
+- Loaded the list of conversations from an external json file.
+- Printed the results while iterating over the json-loaded conversations, making requests to the LLM via `client.responses.create`.
 
 ## Sample output:
 
@@ -96,7 +96,7 @@ python main.py
 python src/proj_1_intro_to_llm_api/main.py
 
 # If you want to execute it as a library module then,
-python -m proj_1_intro_to_llm_api.main
+PYTHONPATH=src python -m proj_1_intro_to_llm_api.main
 ```
 
 </details>

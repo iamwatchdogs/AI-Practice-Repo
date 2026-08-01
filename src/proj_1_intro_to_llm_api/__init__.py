@@ -24,6 +24,6 @@ Within this project we have an custom data structure type: `Conversation`
 Conversation
     It's a `TypedDict` that helped me spread out the value into the
     `client.responses.create` without having type check issues. This helped
-    me set a meaningful type for the `HARDCODED_CONVERSATIONS` and also set
-    the expected type of input for the `main` function.
+    me set a meaningful type for each conversation loaded from the external
+    JSON file.
 """
