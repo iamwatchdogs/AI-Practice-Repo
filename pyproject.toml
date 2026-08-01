@@ -15,6 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
+create_new_project = "utils.create_new_project:main"
 proj_1 = "proj_1_intro_to_llm_api.main:main"
 
 [build-system]

@@ -21,7 +21,9 @@ This is a sample repository where I practice and gain hands-on experience with a
 
 You can check on each of the project from here,
 
+<!-- INDEX STARTS HERE -->
 - [Project-1: Intro to LLM API](./src/proj_1_intro_to_llm_api "goto project-1 on github")
+<!-- INDEX ENDS HERE -->
 
 ## Setup
 
