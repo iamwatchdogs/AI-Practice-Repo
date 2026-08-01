@@ -88,7 +88,7 @@
       '<path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/>' +
       "</svg>";
 
-    function fallbackCopyTextToClipboard(text, btn) {
+    function fallbackCopyTextToClipboard(text, btn, successHandler) {
       var textArea = document.createElement("textarea");
       textArea.value = text;
 
@@ -102,7 +102,7 @@
       try {
         var successful = document.execCommand("copy");
         if (successful) {
-          ok();
+          successHandler();
         } else {
           throw new Error("Unable to copy");
         }
@@ -134,11 +134,11 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(ok, function () {
           // Fallback for when writeText is rejected
-          fallbackCopyTextToClipboard(text, btn);
+          fallbackCopyTextToClipboard(text, btn, ok);
         });
       } else {
         // Fallback for when clipboard API is not available
-        fallbackCopyTextToClipboard(text, btn);
+        fallbackCopyTextToClipboard(text, btn, ok);
       }
     }
 
