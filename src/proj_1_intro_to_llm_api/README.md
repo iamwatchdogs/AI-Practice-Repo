@@ -53,16 +53,6 @@ pip install openai python-dotenv
 
 # (Optional) you can save the dependencies into requirements.txt
 pip freeze > requirements.txt
-
-# To execute the `main.py`
-# If you're within `proj_1_intro_to_llm_api` dir
-python main.py
-
-# If you're within root of the repo
-# python src/proj_1_intro_to_llm_api/main.py
-
-# If you want to execute it as a library module then,
-# python -m proj_1_intro_to_llm_api.main
 ```
 
 </details>
@@ -78,9 +68,8 @@ Here's a small brief of implementation in few words:
 - Set the `api_key`, `base_url` and `model` values.
   - I am aware that `OpenAI` class will automatically try to load these env vars, but I prefer setting these values manually.
 - Creating a openai client using these values.
-- Creating a few hardcoded input conversation values with instructions.
+- Loaded the list of hardedcoded conversations from external json file.
 - Printed the results while iterating over the hardcoded conversations to making requests to LLM via `client.responses.create`.
-- Also I have create an utility function to convert multiline string to normal string and also pretty printed the results.
 
 ## Sample output:
 
@@ -91,6 +80,26 @@ use the following command to achieve similar results,
 # Ensure you have previous synced the dependencies of the repo
 uv run proj_1
 ```
+
+<details>
+<summary>
+For `venv` users
+</summary>
+
+To run the project using `venv` environment, you can use the following commands:
+
+```bash
+# If you're within `proj_1_intro_to_llm_api` dir
+python main.py
+
+# If you're within root of the repo
+python src/proj_1_intro_to_llm_api/main.py
+
+# If you want to execute it as a library module then,
+python -m proj_1_intro_to_llm_api.main
+```
+
+</details>
 
 Here's the sample output that I've got,
 
