@@ -60,8 +60,17 @@
     .content .highlight pre {
         margin-bottom: 0;
         padding: 1.25em 1.5em;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
     }
-    .content .highlight pre code { white-space: pre; }
+    .content .highlight pre code {
+        background-color: transparent;
+        border-radius: 0;
+        white-space: pre;
+    }
+    .content code { border-radius: 0.25em; }
 
     .code-copy {
         position: absolute;
@@ -203,6 +212,9 @@
     [data-theme="dark"] .content code {
         background-color: #12222a;
         color: #7fd4e6;
+    }
+    [data-theme="dark"] .content .highlight code {
+        background-color: transparent;
     }
     [data-theme="dark"] .content pre,
     [data-theme="dark"] .highlight {
