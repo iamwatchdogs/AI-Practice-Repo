@@ -1,124 +1,178 @@
 <!-- footer scripts -->
 
-<button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-    <i class="fas fa-moon"></i>
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle dark mode"
+  title="Toggle dark mode"
+>
+  <i class="fas fa-moon"></i>
 </button>
 
 <script>
-    (function () {
-        var KEY = 'ai-practice-theme';
-        var ICONS = { light: 'fa-moon', dark: 'fa-sun' };
+  (function () {
+    var KEY = "ai-practice-theme";
+    var ICONS = { light: "fa-moon", dark: "fa-sun" };
 
-        function applyIcon(theme) {
-            var icon = document.querySelector('#theme-toggle i');
-            if (icon) icon.className = 'fas ' + (ICONS[theme] || 'fa-moon');
+    function applyIcon(theme) {
+      var icon = document.querySelector("#theme-toggle i");
+      if (icon) icon.className = "fas " + (ICONS[theme] || "fa-moon");
+    }
+
+    var toggle = document.getElementById("theme-toggle");
+    toggle.addEventListener("click", function () {
+      var current = document.documentElement.getAttribute("data-theme");
+      var next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      applyIcon(next);
+      try {
+        localStorage.setItem(KEY, next);
+      } catch (e) {}
+    });
+
+    applyIcon(document.documentElement.getAttribute("data-theme") || "light");
+  })();
+
+  (function () {
+    var TYPES = {
+      note: { icon: "fa-info-circle", label: "Note" },
+      tip: { icon: "fa-lightbulb", label: "Tip" },
+      important: { icon: "fa-exclamation-circle", label: "Important" },
+      warning: { icon: "fa-exclamation-triangle", label: "Warning" },
+      caution: { icon: "fa-octagon", label: "Caution" },
+    };
+
+    document.querySelectorAll(".content blockquote").forEach(function (bq) {
+      var p = bq.querySelector("p");
+      if (!p) return;
+      var m = p.textContent.match(
+        /^\s*\[!(note|tip|important|warning|caution)\]\s*/i,
+      );
+      if (!m) return;
+      var type = TYPES[m[1].toLowerCase()];
+      if (!type) return;
+
+      bq.classList.add(
+        "markdown-alert",
+        "markdown-alert-" + m[1].toLowerCase(),
+      );
+
+      var title = document.createElement("p");
+      title.className = "markdown-alert-title";
+      title.innerHTML =
+        '<i class="fas ' +
+        type.icon +
+        '"></i><strong>' +
+        type.label +
+        "</strong>";
+      bq.insertBefore(title, p);
+
+      var firstText = p.firstChild;
+      if (firstText && firstText.nodeType === 3) {
+        firstText.nodeValue = firstText.nodeValue.replace(m[0], "");
+      }
+      if (!p.textContent.trim()) {
+        p.parentNode.removeChild(p);
+      }
+    });
+  })();
+
+  (function () {
+    var COPY_ICON =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+      '<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h6.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 8.25 15h-6.5A1.75 1.75 0 0 1 0 13.25v-6.5Z"/>' +
+      '<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25v-7.5Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5c.138 0 .25-.112.25-.25v-7.5c0-.138-.112-.25-.25-.25h-7.5Z"/>' +
+      "</svg>";
+    var CHECK_ICON =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+      '<path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/>' +
+      "</svg>";
+
+    function fallbackCopyTextToClipboard(text, btn) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+
+      // Avoid scrolling to bottom
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        var successful = document.execCommand("copy");
+        if (successful) {
+          ok();
+        } else {
+          throw new Error("Unable to copy");
         }
+      } catch (err) {
+        // Show failure state
+        btn.classList.add("is-error");
+        btn.setAttribute("aria-label", "Copy failed");
+        setTimeout(function () {
+          btn.classList.remove("is-error");
+          btn.setAttribute("aria-label", "Copy code to clipboard");
+        }, 1500);
+      }
 
-        var toggle = document.getElementById('theme-toggle');
-        toggle.addEventListener('click', function () {
-            var current = document.documentElement.getAttribute('data-theme');
-            var next = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            applyIcon(next);
-            try { localStorage.setItem(KEY, next); } catch (e) {}
+      document.body.removeChild(textArea);
+    }
+
+    function copyText(text, btn) {
+      function ok() {
+        btn.classList.add("is-copied");
+        btn.innerHTML = CHECK_ICON;
+        btn.setAttribute("aria-label", "Copied to clipboard");
+        setTimeout(function () {
+          btn.classList.remove("is-copied");
+          btn.innerHTML = COPY_ICON;
+          btn.setAttribute("aria-label", "Copy code to clipboard");
+        }, 1500);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, function () {
+          // Fallback for when writeText is rejected
+          fallbackCopyTextToClipboard(text, btn);
         });
+      } else {
+        // Fallback for when clipboard API is not available
+        fallbackCopyTextToClipboard(text, btn);
+      }
+    }
 
-        applyIcon(document.documentElement.getAttribute('data-theme') || 'light');
-    })();
+    document.querySelectorAll(".content .highlight").forEach(function (block) {
+      var pre = block.querySelector("pre");
+      var code = pre && (pre.querySelector("code") || pre);
+      if (!code || !pre) return;
 
-    (function () {
-        var TYPES = {
-            note: { icon: 'fa-info-circle', label: 'Note' },
-            tip: { icon: 'fa-lightbulb', label: 'Tip' },
-            important: { icon: 'fa-exclamation-circle', label: 'Important' },
-            warning: { icon: 'fa-exclamation-triangle', label: 'Warning' },
-            caution: { icon: 'fa-octagon', label: 'Caution' }
-        };
+      block.querySelectorAll(".code-copy").forEach(function (button) {
+        button.remove();
+      });
 
-        document.querySelectorAll('.content blockquote').forEach(function (bq) {
-            var p = bq.querySelector('p');
-            if (!p) return;
-            var m = p.textContent.match(/^\s*\[!(note|tip|important|warning|caution)\]\s*/i);
-            if (!m) return;
-            var type = TYPES[m[1].toLowerCase()];
-            if (!type) return;
-
-            bq.classList.add('markdown-alert', 'markdown-alert-' + m[1].toLowerCase());
-
-            var title = document.createElement('p');
-            title.className = 'markdown-alert-title';
-            title.innerHTML = '<i class="fas ' + type.icon + '"></i><strong>' + type.label + '</strong>';
-            bq.insertBefore(title, p);
-
-            var firstText = p.firstChild;
-            if (firstText && firstText.nodeType === 3) {
-                firstText.nodeValue = firstText.nodeValue.replace(m[0], '');
-            }
-            if (!p.textContent.trim()) {
-                p.parentNode.removeChild(p);
-            }
+      function removeScrollableCopyButtons() {
+        pre.querySelectorAll("button").forEach(function (button) {
+          button.remove();
         });
-    })();
+      }
 
-    (function () {
-        var COPY_ICON =
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
-            '<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25h6.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 8.25 15h-6.5A1.75 1.75 0 0 1 0 13.25v-6.5Z"/>' +
-            '<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25v-7.5Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5c.138 0 .25-.112.25-.25v-7.5c0-.138-.112-.25-.25-.25h-7.5Z"/>' +
-            '</svg>';
-        var CHECK_ICON =
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
-            '<path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/>' +
-            '</svg>';
+      removeScrollableCopyButtons();
+      new MutationObserver(removeScrollableCopyButtons).observe(pre, {
+        childList: true,
+        subtree: true,
+      });
 
-        function copyText(text, btn) {
-            function ok() {
-                btn.classList.add('is-copied');
-                btn.innerHTML = CHECK_ICON;
-                btn.setAttribute('aria-label', 'Copied to clipboard');
-                setTimeout(function () {
-                    btn.classList.remove('is-copied');
-                    btn.innerHTML = COPY_ICON;
-                    btn.setAttribute('aria-label', 'Copy code to clipboard');
-                }, 1500);
-            }
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(ok);
-            }
-        }
-
-        document.querySelectorAll('.content .highlight').forEach(function (block) {
-            var pre = block.querySelector('pre');
-            var code = pre && (pre.querySelector('code') || pre);
-            if (!code || !pre) return;
-
-            block.querySelectorAll('.code-copy').forEach(function (button) {
-                button.remove();
-            });
-
-            function removeScrollableCopyButtons() {
-                pre.querySelectorAll('button').forEach(function (button) {
-                    button.remove();
-                });
-            }
-
-            removeScrollableCopyButtons();
-            new MutationObserver(removeScrollableCopyButtons).observe(pre, {
-                childList: true,
-                subtree: true
-            });
-
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'code-copy';
-            btn.title = 'Copy code to clipboard';
-            btn.setAttribute('aria-label', 'Copy code to clipboard');
-            btn.innerHTML = COPY_ICON;
-            btn.addEventListener('click', function () {
-                copyText(code.textContent, btn);
-            });
-            block.appendChild(btn);
-        });
-    })();
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "code-copy";
+      btn.title = "Copy code to clipboard";
+      btn.setAttribute("aria-label", "Copy code to clipboard");
+      btn.innerHTML = COPY_ICON;
+      btn.addEventListener("click", function () {
+        copyText(code.textContent, btn);
+      });
+      block.appendChild(btn);
+    });
+  })();
 </script>
