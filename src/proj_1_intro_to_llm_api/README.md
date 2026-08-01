@@ -67,8 +67,6 @@ python main.py
 
 </details>
 
-<br>
-
 To wrap it up, I have used the `openai` sdk dependency to make the API call to the LLM and the `python-dotenv` dependecny to load the environmental variables into the current application run from the `.env` file.
 
 ## Implementation
