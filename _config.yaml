@@ -30,6 +30,12 @@ defaults:
       hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo
       hero_link_text: "View on GitHub"
   - scope:
+      path: "src/utils"
+      type: "pages"
+    values:
+      subtitle: "An utility package that will contain all the utlitiy program and script for the repo."
+      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo/tree/main/src/utils
+  - scope:
       path: "src/proj_1_intro_to_llm_api"
       type: "pages"
     values:
