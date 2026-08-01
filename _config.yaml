@@ -30,11 +30,11 @@ defaults:
       hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo
       hero_link_text: "View on GitHub"
   - scope:
-      path: "src/proj_1_openai_cmpt_api"
+      path: "src/proj_1_intro_to_llm_api"
       type: "pages"
     values:
       subtitle: "A simple API call to an LLM using the OpenAI-compatible SDK."
-      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo/tree/main/src/proj_1_openai_cmpt_api
+      hero_link: https://github.com/iamwatchdogs/AI-Practice-Repo/tree/main/src/proj_1_intro_to_llm_api
 
 plugins:
   - jekyll-remote-theme

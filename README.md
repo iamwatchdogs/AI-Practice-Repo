@@ -21,7 +21,7 @@ This is a sample repository where I practice and gain hands-on experience with a
 
 You can check on each of the project from here,
 
-- [Project-1: OpenAI Compatible API](./src/proj_1_openai_cmpt_api "goto project-1 on github")
+- [Project-1: Intro to LLM API](./src/proj_1_intro_to_llm_api "goto project-1 on github")
 
 ## Setup
 

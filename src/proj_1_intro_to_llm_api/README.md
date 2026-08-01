@@ -1,6 +1,6 @@
-# Project1: OpenAI Compatible API
+# Project1: Intro to LLM API
 
-This is a simple project where we use to make a simple API call to the LLM using OpenAI compatible API sdk.
+This is a simple introductory project where we use to make a simple API call to the LLM using OpenAI compatible API sdk.
 For this we're using `openai` module as external dependency.
 
 In this project, we didn't went to technical and tried to implement this at pure API level (i.e., using requests module).
@@ -13,6 +13,63 @@ _(to be more accurate)_ that returns the results.
 > [!TIP]
 >
 > Emphasis on the word treat, because LLMs can never be truly pure function due to their probabilistic nature.
+
+## Dependencies
+
+This is a very basic project that make an API request to the LLM, so all we need is the following dependencies,
+
+- `openai`
+- `python-dotenv`
+
+These dependencies have been installed using the `uv` package manager which has a shared environment across all projects,
+
+```bash
+uv add openai python-dotenv
+```
+
+<details>
+<summary>
+For `venv` users
+</summary>
+
+`venv` is another alternative to the which was widely used before PEP 518 standard _(introduction of `pyproject.toml` for build systems)_ and they're also widely used to this day because they solve critical problem of having isolated environment to install and manage dependencies without worrying about global dependency conflicts.
+
+Anyways, to have a similar kind of setup without any uv package management is as follows,
+
+```bash
+# Create an venv
+python -m venv .venv
+
+# activate the environment
+./.venv/bin/activate
+
+# For windows based system, it would be
+# .\venv\Scripts\activate.bat   if you're using powershell
+# .\venv\Scripts\Activate.ps1   if you're using cmd
+# source venv/Scripts/activate  if you're using git-bash/wsl
+
+# Installing dependencies
+pip install openai python-dotenv
+
+# (Optional) you can save the dependencies into requirements.txt
+pip freeze > requirements.txt
+
+# To execute the `main.py`
+# If you're within `proj_1_intro_to_llm_api` dir
+python main.py
+
+# If you're within root of the repo
+# python src/proj_1_intro_to_llm_api/main.py
+
+# If you want to execute it as a library module then,
+# python -m proj_1_intro_to_llm_api.main
+```
+
+</details>
+
+<br>
+
+To wrap it up, I have used the `openai` sdk dependency to make the API call to the LLM and the `python-dotenv` dependecny to load the environmental variables into the current application run from the `.env` file.
 
 ## Implementation
 
