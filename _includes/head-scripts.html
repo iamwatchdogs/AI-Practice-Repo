@@ -60,8 +60,17 @@
     .content .highlight pre {
         margin-bottom: 0;
         padding: 1.25em 1.5em;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
     }
-    .content .highlight pre code { white-space: pre; }
+    .content .highlight pre code {
+        background-color: transparent;
+        border-radius: 0;
+        white-space: pre;
+    }
+    .content code { border-radius: 0.25em; }
 
     .code-copy {
         position: absolute;
@@ -116,6 +125,34 @@
         align-items: center;
         gap: 0.5rem 0.75rem;
         margin-bottom: 0;
+    }
+
+    .content ul.task-list {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .content ul.task-list ul.task-list {
+        margin: 0.5em 0 0 1.5em;
+    }
+    .content li.task-list-item {
+        position: relative;
+        padding-left: 1.75em;
+    }
+    .content li.task-list-item > .task-list-item-checkbox {
+        position: absolute;
+        left: 0;
+        top: 0.25em;
+        width: 1.05em;
+        height: 1.05em;
+        margin: 0;
+        cursor: default;
+        opacity: 1;
+        accent-color: var(--checkbox-accent, #0969da);
+    }
+    .content li.task-list-item > .task-list-item-checkbox:focus-visible {
+        outline: 2px solid var(--checkbox-accent, #0969da);
+        outline-offset: 2px;
     }
 
     #theme-toggle {
@@ -203,6 +240,9 @@
     [data-theme="dark"] .content code {
         background-color: #12222a;
         color: #7fd4e6;
+    }
+    [data-theme="dark"] .content .highlight code {
+        background-color: transparent;
     }
     [data-theme="dark"] .content pre,
     [data-theme="dark"] .highlight {
@@ -316,6 +356,12 @@
     [data-theme="dark"] .content details > summary { color: #e6f2f6; }
     [data-theme="dark"] .content details > summary:hover { color: #7fd4e6; }
     [data-theme="dark"] .content details[open] > summary { border-bottom-color: #1e3540; }
+    [data-theme="dark"] .content li.task-list-item > .task-list-item-checkbox {
+        accent-color: #5bcbe0;
+    }
+    [data-theme="dark"] .content li.task-list-item > .task-list-item-checkbox:focus-visible {
+        outline-color: #5bcbe0;
+    }
     [data-theme="dark"] ::selection { background: rgba(91, 203, 224, 0.35); }
 
     [data-theme="dark"] .markdown-alert-note { --alert-color: #5bb9e8; --alert-bg: rgba(91, 185, 232, 0.15); }
