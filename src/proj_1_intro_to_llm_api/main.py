@@ -10,7 +10,7 @@ from openai import OpenAI
 
 
 class Message(TypedDict):
-    """A TypeDict for defining list of messages."""
+    """A TypedDict for defining list of messages."""
 
     instructions: str
     input: str

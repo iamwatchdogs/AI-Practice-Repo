@@ -16,10 +16,10 @@ Within this project, we have following functions:
 main() -> None
     This the main driver function of the whole project and all the main
     logic is written within this function. The main function loads all the
-    messages from an extneral json file and perform the API call to the
+    messages from an external JSON file and perform the API call to the
     LLM via OpenAI API Client.
 
-Within this project we have an custom data structure type: `Message`
+Within this project we have a custom data structure type: `Message`
 
 Message
     It's a `TypedDict` that helped me spread out the value into the
