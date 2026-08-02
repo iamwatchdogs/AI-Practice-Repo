@@ -9,20 +9,15 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 
-class Conversation(TypedDict):
-    """A TypeDict for defining list of conversations."""
+class Message(TypedDict):
+    """A TypeDict for defining list of messages."""
 
     instructions: str
     input: str
 
 
 def main() -> None:
-    """Execute the main logic of the program.
-
-    Args: None
-    Returns: None
-
-    """
+    """Execute the main logic of the program."""
     load_dotenv()
 
     api_key: Final[str | None] = os.environ.get("OPENAI_API_KEY")
@@ -33,16 +28,15 @@ def main() -> None:
 
     client: OpenAI = OpenAI(api_key=api_key, base_url=base_url)
 
-    convo_path: Path = Path(__file__).parent / "conversations.json"
-    hardcoded_conversations: list[Conversation] = json.loads(
-        convo_path.read_text(encoding="utf-8")
-    )
+    msgs_path: Path = Path(__file__).parent / "messages.json"
+    hardcoded_msgs: list[Message] = json.loads(msgs_path.read_text(encoding="utf-8"))
 
-    for conversation in hardcoded_conversations:
-        response = client.responses.create(model=model, **conversation)
+    for message in hardcoded_msgs:
+        response = client.responses.create(model=model, **message)
+
         print("\n", "=" * 100, "\n")
-        print("📄:", conversation["instructions"])
-        print("👨:", conversation["input"])
+        print("📄:", message["instructions"])
+        print("👨:", message["input"])
         print("🤖:", response.output_text)
         print("\n", "=" * 100, "\n")
 
