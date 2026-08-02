@@ -103,7 +103,9 @@ PYTHONPATH=src python -m proj_1_intro_to_llm_api.main
 
 Here's the sample output that I've got,
 
-[![asciicast](https://asciinema.org/a/0T4NGKfRHxFMnIgY.svg)](https://asciinema.org/a/0T4NGKfRHxFMnIgY)
+<a href="https://asciinema.org/a/0T4NGKfRHxFMnIgY" title="output-asciinema">
+<img width="1792" height="1098" alt="output-asciinema" src="https://github.com/user-attachments/assets/b5c2f704-794a-4264-a5b3-3be110433648" />
+</a>
 
 <details>
 <summary>
